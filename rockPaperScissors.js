@@ -32,7 +32,6 @@ function game() {
     for (var i = 0; i < 5; i++) {
         var computerSelection = computerPlay();
         var playerSelection = window.prompt("Enter your selection!");
-
         console.log(playRound(computerSelection, playerSelection));
     }
 }
