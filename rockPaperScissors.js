@@ -1,39 +1,69 @@
-console.log("Hallo Welt!");
+var computerScore = 0;
+var humanScore = 0;
+var playerGerman;
+var computerGerman;
 
-function computerPlay() {
-    var arr = ["Rock", "Paper", "Scissors"];
-    var rand = Math.floor(Math.random() * 3);
-    return arr[rand];
+const winner = document.querySelector("#winner");
+const currentScore = document.querySelector("#currentScore");
+const scorePara = document.querySelector("#score");
+const buttons = document.querySelectorAll(".game");
+buttons.forEach((button) => {
+    button.addEventListener("click", playRound);
+});
+
+function computerRound() {
+    array = ["rock", "paper", "scissors"]
+    return array[Math.floor(Math.random() * 3)];
 }
 
-function playRound(playerSelection, computerSelection) {
-    var playerSelection = playerSelection.toLowerCase();
-    var computerSelection = computerSelection.toLowerCase();
+function playRound(e) {
+    if (computerScore >= 5 || humanScore >= 5) {
+        return;
+    }
 
-    /*console.log(playerSelection);
-    console.log(computerSelection);*/
+    const playerSelection = e.path[1].id;
+    const computerSelection = computerRound();
+
+    if (playerSelection === "rock") {
+        playerGerman = "Stein";
+    } else if (playerSelection === "scissors") {
+        playerGerman = "Schere";
+    } else if (playerSelection === "paper") {
+        playerGerman = "Papier";
+    };
+
+    if (computerSelection === "rock") {
+        computerGerman = "Stein";
+    } else if (computerSelection === "scissors") {
+        computerGerman = "Schere";
+    } else if (computerSelection === "paper"){
+        computerGerman = "Papier"
+    }
 
     if (playerSelection === computerSelection) {
-        return "Draw!";
+        winner.textContent = "Unentschieden!";
+    } else if (playerSelection === "rock" && computerSelection === "paper") {
+        computerScore += 1;
+        winner.textContent = `Der Computer wählte ${computerGerman} und gewinnt damit gegen ${playerGerman}!`;
+    } else if (playerSelection === "paper" && computerSelection === "scissors") {
+        computerScore += 1;
+        winner.textContent = `Der Computer wählte ${computerGerman} und gewinnt damit gegen ${playerGerman}!`;
+    } else if (playerSelection === "scissors" && computerSelection === "rock") {
+        computerScore += 1;
+        winner.textContent = `Der Computer wählte ${computerGerman} und gewinnt damit gegen ${playerGerman}!`;
+    } else {
+        humanScore += 1;
+        winner.textContent = `Der Computer wählte ${computerGerman} und verliert damit gegen ${playerGerman}!`;
+    }
+    const para = document.createElement("p");
+    para.textContent = `Mensch: ${humanScore} - Computer: ${computerScore}`
+    para.classList.add("small-text");
+    scorePara.appendChild(para);
+    if (computerScore >= 5) {
+        winner.textContent = "Der Computer hat gewonnen!";        
+    } else if (humanScore >= 5) {
+        winner.textContent = "Der Mensch hat gewonnen!";
     }
 
-    if (
-        (playerSelection === "rock" && computerSelection === "scissors") || 
-        (playerSelection === "paper" && computerSelection === "rock") ||
-        (playerSelection === "scissors" && computerSelection === "paper")
-        ) {
-            return `You won! ${playerSelection} beats ${computerSelection}`;
-        }
-    
-    return `You lost! ${computerSelection} beats ${playerSelection}`;
+    currentScore.textContent = `Mensch ${humanScore} - ${computerScore} Computer`;
 }
-
-function game() {
-    for (var i = 0; i < 5; i++) {
-        var computerSelection = computerPlay();
-        var playerSelection = window.prompt("Enter your selection!");
-        console.log(playRound(computerSelection, playerSelection));
-    }
-}
-
-game()
