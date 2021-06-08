@@ -21,7 +21,7 @@ function playRound(e) {
         return;
     }
     console.log(e);
-    const playerSelection = "e.path[1].id";
+    // const playerSelection = "e.path[1].id";
     const computerSelection = computerRound();
 
     if (playerSelection === "rock") {
