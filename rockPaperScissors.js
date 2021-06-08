@@ -20,7 +20,7 @@ function playRound(e) {
     if (computerScore >= 5 || humanScore >= 5) {
         return;
     }
-    const playerSelection = "e.path[1].id";
+    const playerSelection = e.path[1].id;
     const computerSelection = computerRound();
 
     if (playerSelection === "rock") {
